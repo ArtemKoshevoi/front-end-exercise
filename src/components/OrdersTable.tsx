@@ -1,11 +1,12 @@
 import React from 'react';
-import { DataGrid, GridCellParams, GridColDef } from '@material-ui/data-grid';
+import { DataGrid, GridCellParams, GridColDef, GridSortDirection } from '@material-ui/data-grid';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Order, ShippingAddress } from '../interfaces/Order';
 import { makeStyles } from '@material-ui/core';
 
 interface Props {
-  orders: Order[]
+  orders?: Order[],
+  isSortableReject?: boolean,
 }
 
 const useStyles = makeStyles({
@@ -109,10 +110,11 @@ const columns: GridColDef[] = [
       `;
       return (
       <div className={'orderCell'}>
-        <span># {orderDetails[0]}</span>
+        <span className={'order-details'} data-testid="order-details"># {orderDetails[0]}</span>
         <span className={'order-date'}>Ordered: {dateToShow}</span>
       </div>
     )},
+    sortComparator: (v1, v2, param1, param2) => param1.row.orderNumber[0] - param2.row.orderNumber[0],
   },
   {
     field: 'shippingStatus',
@@ -134,7 +136,7 @@ const columns: GridColDef[] = [
           <span className={'updated-status'}>Updated: {dateToShow}</span>
         </div>
       )
-    }
+    },
   },
   {
     field: 'customerAddress',
@@ -190,16 +192,27 @@ const getTableRows = (orders: Order[]) => {
   })
 };
 
+const sortModel = [
+  {
+    field: 'orderNumber',
+    sort: 'asc' as GridSortDirection,
+  },
+];
 
 
-const OrdersTable: React.FC<Props> = ({orders}) => {
+
+const OrdersTable: React.FC<Props> = ({orders = [], isSortableReject = true}) => {
   const classes = useStyles();
 
   return (
     <div style={{ height: 265, width: '100%', maxWidth: 1100 }} className={classes.root}>
       <DataGrid
         rows={getTableRows(orders)}
-        columns={columns}
+        sortModel={sortModel}
+        columns={columns.map((column) => ({
+          ...column,
+          sortable: isSortableReject,
+        }))}
         checkboxSelection
       />
     </div>
