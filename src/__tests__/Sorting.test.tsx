@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import OrdersTable from '../components/OrdersTable';
+import OrdersTable from '../components/OrdersTable/OrdersTable';
 
 
 it('renders without crashing', () => {

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import OrdersTable from './components/OrdersTable';
+import OrdersTable from './components/OrdersTable/OrdersTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrders } from './effects/Orders';
 import { AppState } from './store/reducers';
 import { makeStyles } from '@material-ui/core';
-import TabHeader from './components/TabHeader';
+import TabHeader from './components/TabHeader/TabHeader';
 
 const useStyles = makeStyles({
   root: {

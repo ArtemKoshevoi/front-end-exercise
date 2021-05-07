@@ -1,14 +1,7 @@
 export interface Order {
   order_number: number
-  customer: {
-    first_name: string,
-    last_name: string,
-    address: ShippingAddress,
-  },
-  order_details: {
-    value: number,
-    date: Date,
-  }
+  customer: Customer,
+  order_details: OrderDetails,
   shipping_details: {
     date: Date,
   },
@@ -21,4 +14,15 @@ export interface ShippingAddress {
   city: string,
   state: string,
   zip: string,
+}
+
+interface Customer {
+  first_name: string,
+  last_name: string,
+  address: ShippingAddress,
+}
+
+interface OrderDetails {
+  value: number,
+  date: Date,
 }

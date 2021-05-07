@@ -6,18 +6,12 @@ export interface OrderState {
   orders: Order[];
 }
 
-export interface OrderAction {
-  type: string;
-  order: Order;
-};
-
 export interface GetOrdersActionType {
   type: typeof GET_ORDERS;
   payload: Order[];
 }
 
 export type OrderActionTypes = GetOrdersActionType;
-
 
 export const getOrdersAction = (orders: Order[]): OrderActionTypes => {
   return {
